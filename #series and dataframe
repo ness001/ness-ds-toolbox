@@ -1,0 +1,21 @@
+#series and dataframe
+
+##dataframe
+
+#slice five rows
+df[:5]
+
+#slice first sample/observation
+sample=df.loc[0]
+
+##series attributes
+sample.index
+sample.values
+
+#slice a column,it is a series object,too
+col1=df.col1
+col.index
+col.values
+
+pd.
+
