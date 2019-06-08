@@ -1,4 +1,17 @@
- 
+#calculate默认沿着index轴 axis=0计算
+df['col1'].mean()
+df['col1'].std()
+df.sum()
+
+#表示需要匹配的轴,	defaul:axis=1
+df_mean=df.mean()
+df.sub(df_mean,axis=1)
+(df-df_mean)/df_std
+
+df.cov()
+df.corr()
+
+
 #重排列
 df=df.sample(len(df))
 #is equal to
@@ -16,24 +29,40 @@ pd.merge(df1,df2,left_on='v1',right_index=True)
 
 
 #index concat
-pd.concat([df1,df2])
+pd.concat([df1,df2],on=['col1','col2'])
 #col concat
 pd.concat([df1,df2],axis=1,join='inner',ignore_index=True)
+pd.concat([df1,df2],axis=1,keys=['first','second'])
+pd.concat([df1,df2],axis=1,join_axes=[df1.index])
+
+#first/last/false 意味着保留第一个重复值，最后一个重复值和所有重复值
+#merge different df with same primary key  but different name
+pd.merge(left,right,on='key',how='outer/left/right/inner',indicator=True/'ind_col1')
+pd.merge(frame_1, frame_2, left_on='county_ID', right_on='countyid')
+#left join
+pd.merge(frame_1, frame_2, how='left', left_on='county_ID', right_on='countyid',suffixes=('_left','_right'))
+pd.merge(df1,df2,left_index=True,right_on='key2')
 
 
+
+#return boolean series
+print(df[df.duplicated(keep=first)])
+print(df[df.duplicated(subset='col1')])
+print(df.duplicated().value_counts())
+#drop rows
 df.drop_duplicates('col1')
 df.drop_duplicates()
+#first : Drop duplicates except for the first occurrence.<- default
+#last : Drop duplicates except for the last occurrence.
+#False : Drop all duplicates.Ω
+df.drop_duplicates(keep='first') 
 
-df.drop(['col2','col100'],axis=1)
-df.drop(['row1','row2'])
-
-
-#修改列索引的名称,需要inplace=True
-d={'three':'third','second':'two','one':'third'}
-df.rename(d)
-df.rename(columns=str.upper)#把列名全部大写
-df.rename(columns=str.lower)#把列名全部小写
-df.rename(columns=lambda x:)#对列名做更加复杂的处理
+#del a column
+df=df.drop(columns=['col2','col100'])
+df=df.drop(index=['row1','row2'])
+df.drop(needtobedel.index)
+del df['col1']
+y=df.pop('col1')
 
 #convert to discrete variable
 from sklearn.cluster import KMeans
