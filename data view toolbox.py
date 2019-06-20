@@ -11,7 +11,6 @@ cd data_path
 np.sort(np.unique(df['a']))
 #check for num of unique key
 df['a'].nunique()
-#check for uniques key's frequency
 df['a'].value_counts()
 
 

@@ -2,8 +2,8 @@
 df.isnull().sum()
 #degree of missing
 df.isnull().sum().sum()/len(df)
-#return boolean,show all null
-df[df.isnull()]
+#figure out the reason of missing value
+df[df.isnull()].head(3)
 
 
 df['a'].values_counts(dropna=False)
@@ -41,7 +41,9 @@ df.fillna({'col1':0,'col2':1})
 df.fillna({'col1':anything,'col2':df.col2.mean()})
 #使用统计量进行填充
 df.fillna(df.mean())
-df.replace('missing',np.nan)
+#deal with 'unknown'
+df.replace('unknown',np.nan)
+#use df1 to fillna df2 or update df2	
 df2.combine_first(df1)
 
 

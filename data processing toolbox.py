@@ -15,7 +15,7 @@ df['parsed_date']=pd.to_datetime(df[date],infer_datetime_format=True)
 df['parsed_date']=pd.to_datetime(df[date],error='coerce',format="%m/%d/%y")
 #定义函数，批量处理
 def conver_str_datetime(df):
-    df.insert(loc=2, column="timestamp", value=pd.to_datetime(df.transdate, format='%Y-%m-%d %H:%M:%S")
+    df.insert(loc=2, column="timestamp", value=pd.to_datetime(df.transdate, format='%Y-%m-%d %H:%M:%S')
 
 
 #读取年月日时,星期几

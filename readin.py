@@ -1,7 +1,7 @@
 cd data_path
 
 #READ_CSV
-df=pd.READ_CSV('abc.csv',sep=';',encoding='gbk',parse_dates=['col1'],parse=parser,index_col='col0',nrows=,usecols=,
+df=pd.READ_CSV('abc.csv',sep=';',encoding='gbk',parse_dates=['col1'],parse=parser/True,index_col='col0'/ 0 int,nrows=,usecols=,
 	skiprows=,header=Noneifnoheader,names=whenNoneheader[],na_values=np.nan)#default index=none
 #detect encoding
 import chardet
@@ -34,6 +34,8 @@ df.rename(index=d)
 df.rename(columns=str.upper)#把列名全部大写
 df.rename(columns=str.lower)#把列名全部小写
 df.rename(columns=lambda x:)#对列名做更加复杂的处理
+loandata_transformed.columns = loandata.columns.map(lambda x: x.replace('_',' ').title())
+
 #complicated 
 columns_chi = '贷款数额|评级|评级细分|工作年限|是否拥有房屋|年收入|发贷日期|贷款状态|开户数量|还款总额|还贷利息总额' 
 chinese=columns_chi.split('|')
@@ -65,8 +67,6 @@ pd.DataFrame(d)
 #create by rows
 data=[{'a':1,'b':2,'c':3},{'a':5,'b':10,'c':20}]
 pd.DataFrame(data,index=[])
-
-
 
 
 
