@@ -1,4 +1,41 @@
- 
+#check for unique key
+np.sort(np.unique(df['a']))
+#check for num of unique key
+df['a'].nunique()
+#check for uniques key's frequency
+df['a'].value_counts(dropna=False)
+
+
+#calculate默认沿着index轴 axis=0计算
+df['col1'].mean()
+df['col1'].std()
+df.sum()
+
+#use aggregate method
+mapper={'col1':['mean','std'],
+'col2':'max'}
+df.agg(mapper)
+
+#use transform method
+
+df.transform('abs')
+
+#保留两位小数
+df.applymap(lambda x: '%0.2f' %x)
+df['col1'].apply(lambda x : '%0.2f' %x)
+
+#表示需要匹配的轴,	defaul:axis=1
+df_mean=df.mean()
+df.sub(df_mean,axis=1)
+(df-df_mean)/df_std
+#
+df.cov()
+df.corr()
+
+#sort
+df.sort_values('col1')
+df.sort_index(ascending=True)
+
 #重排列
 df=df.sample(len(df))
 #is equal to
@@ -8,32 +45,56 @@ df=df.take(np.random.permuation(len(df)))
 mapper={'good':1,'med':0,'bad':-1}
 df['a'].replace(mapper,inplace=true)
 
+#extract number 
+series.str.extract(r'(/d.)',expand=True)
+#a series to get dums
+series.str.get_dummies(sep=',')
+#
+series.split('_',expand=True)
 
+
+#index concat
+pd.concat([df1,df2],on=['col1','col2'])
+#col concat
+pd.concat([df1,df2],axis=1,join='inner',ignore_index=True)
+pd.concat([df1,df2],axis=1,keys=['first','second'])
+pd.concat([df1,df2],axis=1,join_axes=[df1.index])
+
+#first/last/false 意味着保留第一个重复值，最后一个重复值和所有重复值
+#merge different df with same primary key  but different name
 #merge with var
 pd.merge(df1,df2,left_on='v1',right_on='v2',how='outer')
 #merge with index
 pd.merge(df1,df2,left_on='v1',right_index=True)
+pd.merge(left,right,on='key',how='outer/left/right/inner',indicator=True/'ind_col1')#left join
+pd.merge(frame_1, frame_2, how='left', left_on='county_ID', right_on='countyid',suffixes=('_left','_right'))
+pd.merge(df1,df2,left_index=True,right_on='key2')
 
 
-#index concat
-pd.concat([df1,df2])
-#col concat
-pd.concat([df1,df2],axis=1,join='inner',ignore_index=True)
 
-
+#return boolean series
+print(df[df.duplicated(keep=first)])
+print(df[df.duplicated(subset='col1')])
+print(df.duplicated().value_counts())
+#drop rows
 df.drop_duplicates('col1')
 df.drop_duplicates()
+#first : Drop duplicates except for the first occurrence.<- default
+#last : Drop duplicates except for the last occurrence.
+#False : Drop all duplicates.Ω
+df.drop_duplicates(keep='first') 
 
-df.drop(['col2','col100'],axis=1)
-df.drop(['row1','row2'])
+#del a column
+df=df.drop(columns=['col2','col100'])
+df=df.drop(index=['row1','row2'])
+df.drop(needtobedel.index)
+del df['col1']
+y=df.pop('col1')
+
+#get dummies
+pd.get_dummies(df,columns=['a','b'],drop_first=True,dummy_na=True,prefix='xxx_')
 
 
-#修改列索引的名称,需要inplace=True
-d={'three':'third','second':'two','one':'third'}
-df.rename(d)
-df.rename(columns=str.upper)#把列名全部大写
-df.rename(columns=str.lower)#把列名全部小写
-df.rename(columns=lambda x:)#对列名做更加复杂的处理
 
 #convert to discrete variable
 from sklearn.cluster import KMeans
@@ -77,6 +138,8 @@ normalized_data = stats.boxcox(original_data)
 from sklearn.preprocessing import Binarzier
 b=Binarzier(threshold=10)
 df['col1_bi']=b.fit_transform(df[['col_bi']])
+
+
 #onehot编码，结果变为多列
 encode=pd.get_dummies(data['a'],prefix='col1_')
 
