@@ -9,7 +9,7 @@ df[df.isnull()].head(3)
 df['a'].values_counts(dropna=False)
 
 #delete obs
-df.dropna(axis=0,inplace=False)
+df.dropna(subset=['x1'],axis=0,inplace=False)
 
 #find duplicates and slice out non-dups
 df[~df.duplicated(keep='first')]
@@ -25,6 +25,14 @@ print(df.shape[0]-df_new.shape[0])
 
 
 
+from sklearn.preprocessing import Imputer as SimpleImputer
+imputer = SimpleImputer(strategy="median")
+imputer.fit(housing_num)
+imputer.statistics_
+X = imputer.transform(housing_num)
+housing_tr = pd.DataFrame(X, columns=housing_num.columns,
+                          index=housing.index)
+imputer.strategy
 
 #missing values
 #display nans
@@ -33,14 +41,18 @@ df.isnull().sum(1)#沿着列的方向求和，即统计出来obs的缺失数目
 
 #handle with missing，从后往前填充
 data.fillna(0)
-data.fillna(df2)
+data.fillna(df2)#with other column
 data.fillna(method='ffill',inplace=True)#用前值填充
 data.fillna(method='bbill',inplace=True)#用后值填充
+
+# simple fill with median
+median = train["x1"].median()
+train["x1"].fillna(median, inplace=True) 
+
 #对不同列使用不同填充，用dictionary
 df.fillna({'col1':0,'col2':1})
 df.fillna({'col1':anything,'col2':df.col2.mean()})
-#使用统计量进行填充
-df.fillna(df.mean())
+
 #deal with 'unknown'
 df.replace('unknown',np.nan)
 #use df1 to fillna df2 or update df2	

@@ -50,8 +50,21 @@ bst = xgb.train(param, dtrain, num_round)
 preds = bst.predict(dtest)
 
 
+# cross validation score
+from sklearn.model_selection import cross_val_score
 
+#change estimator to show different socres
+scores = cross_val_score(tree_reg, housing_prepared, housing_labels,
+                         scoring="neg_mean_squared_error", cv=10)
+tree_rmse_scores = np.sqrt(-scores)
 
-reg:squarederror
+def display_scores(scores):
+    print("Scores:", scores)
+    print("Mean:", scores.mean())
+    print("Standard deviation:", scores.std())
+#option a
+display_scores(tree_rmse_scores)
+# option b
+pd.Series(np.sqrt(-tree_rmse_scores)).describe()
 
 
