@@ -15,10 +15,9 @@ mpl.rc('ytick', labelsize=12)
 # use os.path.join as possibley as you can
 PROJECT_ROOT_DIR = "."
 CHAPTER_ID = "end_to_end_project"
-IMAGES_PATH = os.path.join(PROJECT_ROOT_DIR, "images", CHAPTER_ID)
 
 def save_fig(fig_id, tight_layout=True, fig_extension="png", resolution=300):
-    path = os.path.join(IMAGES_PATH, fig_id + "." + fig_extension)
+    path = os.path.join(PROJECT_ROOT_DIR,'images', CHAPTER_ID, fig_id + "." + fig_extension)
     print("Saving figure", fig_id)
     if tight_layout:
         plt.tight_layout()
