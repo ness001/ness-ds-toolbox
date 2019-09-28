@@ -42,3 +42,28 @@ pd.DataFrame(rnd_search.cv_results_)
 cvres=rnd_search.cv_results_
 for mean_score, params in zip(cvres['mean_test_score'],cvres['params']):
     print(np.sqrt(-mean_score),params)
+
+
+#use plots to choose best K
+for i in range(1, 40):
+    knn = KNeighborsClassifier(n_neighbors=i)
+    knn.fit(x_train, y_train)
+    pred_i = knn.predict(x_test)
+    error.append(np.mean(pred_i != y_test))
+
+train_error=[]
+for i in range(1, 40):
+    knn = KNeighborsClassifier(n_neighbors=i)
+    knn.fit(x_train, y_train)
+    y_predicted = knn.predict(x_train)
+    train_error.append(np.mean(y_predicted != y_train))
+
+plt.figure(figsize=(12, 6))
+plt.plot(range(1, 40), error, color='red', linestyle='dashed', marker='o',
+         markerfacecolor='blue', markersize=10,label='test error rate')
+plt.plot(range(1, 40), train_error, color='blue', linestyle='dashed', marker='o',
+         markerfacecolor='red', markersize=10,label='train error rate')
+plt.title('Error Rate K Value')
+plt.legend(loc="lower right")
+plt.xlabel('K Value')
+plt.ylabel('Mean Error')    
