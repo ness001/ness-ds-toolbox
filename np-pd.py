@@ -1,0 +1,1 @@
+np.hstack((data,np.full((sample_num,1),1)))

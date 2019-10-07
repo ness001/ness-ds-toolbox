@@ -6,6 +6,7 @@ train_set, test_set = train_test_split(housing, test_size=0.2, random_state=42)
 for set_ in (train_set, test_set):
     set_.drop("income_cat", axis=1, inplace=True)
 
+
 #stratified split
 from sklearn.model_selection import StratifiedShuffleSplit
 
