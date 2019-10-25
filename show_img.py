@@ -1,3 +1,4 @@
+import matplotlib as mpl
 img_array = X[36000]
 img_array_reshaped=img_array.reshape(28, 28)
 plt.imshow(img_array_reshaped, cmap = mpl.cm.binary,
