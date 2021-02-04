@@ -21,6 +21,10 @@ df.get_chunk(4)
 df=pd.read_excel('abc.xlsx',sheet_name=['first','second'])
 df['first']#read the 'first' sheet
 
+# read from dictionary
+dict_ = {'key 1': 'value 1', 'key 2': 'value 2', 'key 3': 'value 3'}
+pd.DataFrame([dict_])
+
 #change index
 df.reindex(columns=['age','sex','name'])
 df.reindex(['r1','r2','r3'])
